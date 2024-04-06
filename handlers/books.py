@@ -64,6 +64,7 @@ async def del_book(callback: types.CallbackQuery):
     await callback.message.answer("Книга видалена зі списку!")
     await callback.answer("Its ok, book has been deleted", show_alert=True)
 
+
 class AddBook(StatesGroup):
     title = State()
     page = State()
@@ -111,6 +112,5 @@ async def add_content_cmd(message: types.Message, state: FSMContext):
     data_to_update = await read_file()
     data_to_update.append(data)
     await write_file(data_to_update)
-    await message.answer(str(data))
     await state.clear()
 

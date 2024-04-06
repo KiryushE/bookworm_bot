@@ -23,24 +23,9 @@ keyboard = ReplyKeyboardBuilder()
 keyboard.add(
     types.KeyboardButton(text="📚Книги"),
     types.KeyboardButton(text="🔗Посилання"),
-    types.KeyboardButton(text="homeworks"),
     types.KeyboardButton(text="📄Інформація про бота")
 )
 keyboard.adjust(3, 2)
-
-
-homeworks_keyboard = types.ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            types.KeyboardButton(text="view all homeworks"),
-        ],
-        [
-            types.KeyboardButton(text="add new homeworks"),
-        ]
-    ],
-    resize_keyboard=True,
-    input_field_placeholder="Choose your option"
-)
 
 
 books_keyboard = types.ReplyKeyboardMarkup(
