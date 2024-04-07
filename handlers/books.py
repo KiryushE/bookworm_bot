@@ -2,7 +2,7 @@ import asyncio
 import json
 
 import aiofiles
-from aiogram import Router, types, F
+from aiogram import Router, types, F, filters
 from aiogram.filters import Command, StateFilter, or_f
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
@@ -59,16 +59,25 @@ async def all_book_cmd(message: types.Message):
 async def del_book(callback: types.CallbackQuery):
     book_id = callback.data.split("_")[-1]
     books_list = await read_file()
+    book_name = books_list[int(book_id)]["title"]
     books_list.pop(int(book_id))
     await write_file(books_list)
-    await callback.message.answer("Книга видалена зі списку!")
-    await callback.answer("Its ok, book has been deleted", show_alert=True)
+    await callback.message.answer(f"<i><b>Книга <u>'{book_name}'</u> видалена зі списку!</b></i>")
+    await callback.answer("Видалення пройшло успішно!", show_alert=True)
 
 
 class AddBook(StatesGroup):
     title = State()
     page = State()
     page_name = State()
+
+
+@book_router.message(Command("name_user"))
+async def get_user_id(message: types.Message):
+    user_id = message.from_user.id
+    first_name = message.from_user.first_name
+    last_name = message.from_user.last_name
+    await message.answer(f"Ваш ID: {user_id}\nВаше прізвище: {last_name}\nВаше ім'я: {first_name}")
 
 
 @book_router.message(StateFilter(None), F.text == "📖Додати книгу")

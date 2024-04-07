@@ -24,7 +24,13 @@ async def start_cmd(message: types.Message):
 
 @private_router.message(or_f(Command("about"), F.text == "📄Інформація про бота"))
 async def option_cmd(message: types.Message):
-    await message.answer("info about <b><u>bot</u></b>")
+    # await message.answer("info about <b><u>bot</u></b>")
+    await message.answer("""
+<b>⚙️Бот знаходиться в розробці⚙️</b>
+
+<i>Ми працюємо над покращенням його можливостей.
+Очікуйте на нові функції найближчим часом.
+Дякую за ваше терпіння та розуміння.</i>""")
 
 
 @private_router.message(or_f(Command("links"), F.text == "🔗Посилання"))
